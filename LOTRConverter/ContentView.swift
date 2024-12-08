@@ -11,8 +11,13 @@ struct ContentView: View {
                 .resizable()
                 .scaledToFit()
                 .frame(width: 200, height: 200)
-                .position(x: 200, y: 200)
-        
+                .position(x: 200, y: 150)
+            VStack{
+                Text("LOTR Converter")
+            }
+            .font(.largeTitle)
+            .fontWeight(.bold)
+            .foregroundStyle(.white)
         }
         
     }
