@@ -76,6 +76,7 @@ struct ContentView: View {
                     Spacer()
                     Button{
                         showExchangeInfo.toggle()
+                        
                     }label: {
                         Image(systemName: "info.circle.fill")
                             .font(.largeTitle)
@@ -83,6 +84,9 @@ struct ContentView: View {
                             .foregroundStyle(.white)
                     }
                     .padding(.trailing)
+                    .sheet(isPresented: $showExchangeInfo){
+                        ExchangeInfoView()
+                    }
                 }
             }
             
