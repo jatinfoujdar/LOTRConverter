@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct SelectCurrencyView: View {
+
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
@@ -9,12 +10,17 @@ struct SelectCurrencyView: View {
                 .resizable()
                 .ignoresSafeArea()
                 .background(.brown)
+            
             VStack{
                 Text("Select the currency you are starting with:")
                     .fontWeight(.bold)
+                LazyVGrid(columns: [GridItem(),GridItem(),GridItem()]){
+                    ForEach(0..<5){ _ in
+                        CurrencyIconView(currencyImage: .goldpiece, currencyName: "Gold Piece")
+                    }
+                }
                
                
-                
                 Text("Select the currency you would like to convert to:")
                     .fontWeight(.bold)
                     .multilineTextAlignment(.center)

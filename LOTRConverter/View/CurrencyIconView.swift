@@ -19,6 +19,7 @@ struct CurrencyIconView: View {
             
             Text(currencyName)
                 .padding(3)
+                .foregroundColor(.white)
                 .font(.caption)
                 .frame(maxWidth: .infinity)
                 .background(.brown.opacity(0.75))
