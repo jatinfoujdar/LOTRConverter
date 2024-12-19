@@ -15,8 +15,8 @@ struct SelectCurrencyView: View {
                 Text("Select the currency you are starting with:")
                     .fontWeight(.bold)
                 LazyVGrid(columns: [GridItem(),GridItem(),GridItem()]){
-                    ForEach(0..<5){ _ in
-                        CurrencyIconView(currencyImage: .goldpiece, currencyName: "Gold Piece")
+                    ForEach(Currency.allCases){ currency in
+                        CurrencyIconView(currencyImage: currency.image, currencyName: currency.name)
                     }
                 }
                
