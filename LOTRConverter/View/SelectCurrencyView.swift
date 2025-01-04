@@ -3,7 +3,8 @@ import SwiftUI
 struct SelectCurrencyView: View {
 
     @Environment(\.dismiss) var dismiss
-    @State var currency : Currency
+    @State var leftcurrency : Currency
+    @State var rightcurrency: Currency
     
     var body: some View {
         ZStack(alignment: .center){
@@ -15,30 +16,16 @@ struct SelectCurrencyView: View {
             VStack{
                 Text("Select the currency you are starting with:")
                     .fontWeight(.bold)
-                LazyVGrid(columns: [GridItem(),GridItem(),GridItem()]){
-                    ForEach(Currency.allCases){ currency in
-                        if self.currency == currency{
-                            CurrencyIconView(currencyImage: currency.image, currencyName: currency.name)
-                                .shadow(color: .black, radius: 10)
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 25)
-                                        .stroke(lineWidth: 3)
-                                        .opacity(0.5)
-                                )
-                        }
-                        else{
-                            CurrencyIconView(currencyImage: currency.image, currencyName: currency.name)
-                                .onTapGesture {
-                                    self.currency = currency
-                                }
-                        }
-                    }
-                }
+                IconsGridView(currency: leftcurrency)
+                
                
                
                 Text("Select the currency you would like to convert to:")
                     .fontWeight(.bold)
                     .multilineTextAlignment(.center)
+                    .padding()
+                
+                IconsGridView(currency: rightcurrency)
                 
                 HStack{
                     
@@ -54,7 +41,7 @@ struct SelectCurrencyView: View {
                 .tint(.brown.mix(with: .black, by: 0.2))
                 .font(.largeTitle)
                 .padding()
-                .foregroundStyle(.white)
+                .foregroundStyle(.black)
             }
             .padding()
         }
@@ -63,5 +50,5 @@ struct SelectCurrencyView: View {
 
 
 #Preview(){
-    SelectCurrencyView(currency: .silverPenny)
+    SelectCurrencyView(leftcurrency: .silverPenny, rightcurrency: .goldPenny)
 }
