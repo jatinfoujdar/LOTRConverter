@@ -6,8 +6,8 @@ struct ContentView: View {
     @State var rightAmount = ""
     @State var showSelectCurrency = false
     
-    @State var Topcurrency : Currency = .silverPiece
-    @State var Bottomcurrency : Currency = .goldPiece
+    @State var topcurrency : Currency = .silverPiece
+    @State var bottomcurrency : Currency = .goldPiece
     
     var body: some View {
         ZStack{
@@ -29,12 +29,12 @@ struct ContentView: View {
                 HStack{
                     VStack{
                         HStack{
-                            Image(Topcurrency.image)
+                            Image(topcurrency.image)
                                 .resizable()
                                 .scaledToFit()
                                 .frame(height: 40)
                             
-                            Text(Topcurrency.name)
+                            Text(topcurrency.name)
                                 .font(.headline)
                                 .fontWeight(.bold)
                                 .foregroundStyle(.white)
@@ -55,12 +55,12 @@ struct ContentView: View {
                     
                     VStack{
                         HStack{
-                            Text(Bottomcurrency.name)
+                            Text(bottomcurrency.name)
                                 .font(.headline)
                                 .fontWeight(.bold)
                                 .foregroundStyle(.white)
                             
-                            Image(Bottomcurrency.image)
+                            Image(bottomcurrency.image)
                                 .resizable()
                                 .scaledToFit()
                                 .frame(height: 40)
@@ -98,7 +98,7 @@ struct ContentView: View {
                         ExchangeInfoView()
                     }
                     .sheet(isPresented: $showSelectCurrency){
-                        SelectCurrencyView(leftcurrency: Topcurrency, rightcurrency: Bottomcurrency)
+                        SelectCurrencyView(topCurrency: $topcurrency, bottomCurrency: $bottomcurrency)
                     }
                 }
             }

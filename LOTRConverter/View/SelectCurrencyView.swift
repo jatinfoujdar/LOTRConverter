@@ -3,8 +3,9 @@ import SwiftUI
 struct SelectCurrencyView: View {
 
     @Environment(\.dismiss) var dismiss
-    @State var leftcurrency : Currency
-    @State var rightcurrency: Currency
+    
+    @Binding var topCurrency : Currency
+    @Binding var bottomCurrency: Currency
     
     var body: some View {
         ZStack(alignment: .center){
@@ -16,7 +17,7 @@ struct SelectCurrencyView: View {
             VStack{
                 Text("Select the currency you are starting with:")
                     .fontWeight(.bold)
-                IconsGridView(currency: leftcurrency)
+                IconsGridView(currency: $topCurrency)
                 
                
                
@@ -25,7 +26,7 @@ struct SelectCurrencyView: View {
                     .multilineTextAlignment(.center)
                     .padding()
                 
-                IconsGridView(currency: rightcurrency)
+                IconsGridView(currency: $bottomCurrency)
                 
                 HStack{
                     
@@ -50,5 +51,8 @@ struct SelectCurrencyView: View {
 
 
 #Preview(){
-    SelectCurrencyView(leftcurrency: .silverPenny, rightcurrency: .goldPenny)
+    @Previewable @State var topCurrency: Currency = .silverPenny
+    @Previewable @State var bottomCurrency: Currency = .goldPenny
+    
+    SelectCurrencyView(topCurrency: $topCurrency, bottomCurrency: $bottomCurrency)
 }
