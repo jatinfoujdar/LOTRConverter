@@ -1,10 +1,13 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @State var showSelectCurrency = false
     @State var  showExchangeInfo = false
+    
     @State var leftAmount = ""
     @State var rightAmount = ""
-    @State var showSelectCurrency = false
+   
     
     @State var topcurrency : Currency = .silverPiece
     @State var bottomcurrency : Currency = .goldPiece
