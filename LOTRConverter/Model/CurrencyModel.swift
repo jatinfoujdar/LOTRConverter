@@ -52,8 +52,10 @@ enum Currency: Double, CaseIterable, Identifiable{
             return ""
         }
         
+        let convertedAmount = (doubleAmount / self.rawValue) * currency.rawValue
         
-        return ""
+        
+        return String(format: "%.2f", convertedAmount)
     }
 }
 
