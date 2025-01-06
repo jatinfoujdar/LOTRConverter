@@ -51,11 +51,13 @@ struct ContentView: View {
                         TextField("Amount", text: $leftAmount)
                             .textFieldStyle(.roundedBorder)
                             .focused($leftTyping)
-                            .onChange(of: leftAmount) { newValue in
+                            .onChange(of: leftAmount) {
                                 if leftTyping {
-                                    rightAmount = leftCurrency.convert(newValue, to: rightCurrency)
+                                    rightAmount = leftCurrency.convert(leftAmount, to: rightCurrency)
                                 }
                             }
+
+                           
                     }
                     Image(systemName: "equal")
                         .font(.largeTitle)
@@ -84,9 +86,9 @@ struct ContentView: View {
                             .textFieldStyle(.roundedBorder)
                             .multilineTextAlignment(.trailing)
                             .focused($rightTyping)
-                            .onChange(of: rightAmount) { newValue in
+                            .onChange(of: rightAmount) {
                                 if rightTyping {
-                                    leftAmount = rightCurrency.convert(newValue, to: leftCurrency)
+                                    leftAmount = rightCurrency.convert(rightAmount, to: leftCurrency)
                                 }
                             }
                     }
