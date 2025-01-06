@@ -7,10 +7,12 @@ struct ContentView: View {
     
     @State var leftAmount = ""
     @State var rightAmount = ""
-   
     
-    @State var topcurrency : Currency = .silverPiece
-    @State var bottomcurrency : Currency = .goldPiece
+    @FocusState var leftTyping
+    @FocusState var rightTyping
+    
+    @State var leftCurrency : Currency = .silverPiece
+    @State var rightCurrency : Currency = .goldPiece
     
     var body: some View {
         ZStack{
@@ -32,12 +34,12 @@ struct ContentView: View {
                 HStack{
                     VStack{
                         HStack{
-                            Image(topcurrency.image)
+                            Image(leftCurrency.image)
                                 .resizable()
                                 .scaledToFit()
                                 .frame(height: 40)
                             
-                            Text(topcurrency.name)
+                            Text(leftCurrency.name)
                                 .font(.headline)
                                 .fontWeight(.bold)
                                 .foregroundStyle(.white)
@@ -48,7 +50,12 @@ struct ContentView: View {
                         }
                         TextField("Amount", text: $leftAmount)
                             .textFieldStyle(.roundedBorder)
-                            
+                            .focused($leftTyping)
+                            .onChange(of: leftAmount) { newValue in
+                                if leftTyping {
+                                    rightAmount = leftCurrency.convert(newValue, to: rightCurrency)
+                                }
+                            }
                     }
                     Image(systemName: "equal")
                         .font(.largeTitle)
@@ -58,12 +65,12 @@ struct ContentView: View {
                     
                     VStack{
                         HStack{
-                            Text(bottomcurrency.name)
+                            Text(rightCurrency.name)
                                 .font(.headline)
                                 .fontWeight(.bold)
                                 .foregroundStyle(.white)
                             
-                            Image(bottomcurrency.image)
+                            Image(rightCurrency.image)
                                 .resizable()
                                 .scaledToFit()
                                 .frame(height: 40)
@@ -76,6 +83,12 @@ struct ContentView: View {
                         TextField("Amount", text: $rightAmount)
                             .textFieldStyle(.roundedBorder)
                             .multilineTextAlignment(.trailing)
+                            .focused($rightTyping)
+                            .onChange(of: rightAmount) { newValue in
+                                if rightTyping {
+                                    leftAmount = rightCurrency.convert(newValue, to: leftCurrency)
+                                }
+                            }
                     }
                    
                 }
@@ -101,7 +114,7 @@ struct ContentView: View {
                         ExchangeInfoView()
                     }
                     .sheet(isPresented: $showSelectCurrency){
-                        SelectCurrencyView(topCurrency: $topcurrency, bottomCurrency: $bottomcurrency)
+                        SelectCurrencyView(topCurrency: $leftCurrency, bottomCurrency: $rightCurrency)
                     }
                 }
             }
