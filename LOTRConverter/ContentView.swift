@@ -1,4 +1,5 @@
 import SwiftUI
+import TipKit
 
 struct ContentView: View {
     
@@ -13,6 +14,8 @@ struct ContentView: View {
     
     @State var leftCurrency : Currency = .silverPiece
     @State var rightCurrency : Currency = .goldPiece
+    
+    let currencyTip = CurrencyTip()
     
     var body: some View {
         ZStack{
@@ -48,6 +51,8 @@ struct ContentView: View {
                         .onTapGesture {
                             showSelectCurrency.toggle()
                         }
+                        .popoverTip(currencyTip, arrowEdge: .bottom)
+                        
                         TextField("Amount", text: $leftAmount)
                             .textFieldStyle(.roundedBorder)
                             .focused($leftTyping)
@@ -122,7 +127,9 @@ struct ContentView: View {
             }
             
         }
-        
+        .task {
+            try? Tips.configure()
+        }
     }
 }
 
